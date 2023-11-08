@@ -1,0 +1,17 @@
+# Use the official gradle/Java 17 image to create a build artifact.
+# https://hub.docker.com/_/maven
+#FROM gradle:jdk17-alpine AS builder
+FROM maven:3.9.5-eclipse-temurin-17-alpine as builder
+# Copy local code to the container image.
+WORKDIR /app
+
+COPY pom.xml ./
+
+# copy source code
+COPY src ./src
+
+# build project
+RUN mvn package -DskipTests
+
+#Run the web service on container startup.
+CMD ["java","-Djava.security.egd=file:/dev/./urandom","-Dserver.port=8080","-jar","/app/target/project-scaffold-0.0.1-SNAPSHOT.jar"]
