@@ -5,7 +5,7 @@ FROM gradle:jdk17-alpine AS builder
 WORKDIR /app
 
 # copy Gradle build file
-COPY build.gradle ./docker
+COPY build.gradle ./
 COPY settings.gradle ./
 
 # copy source code
